@@ -32,12 +32,12 @@ bool StockAnalyzer::loadCSV(const std::string& filename) {
         try {
             StockData entry(
                 tokens[0], // дата
-                std::stod(tokens[2]), // открытый
+                std::stod(tokens[2]), // открытие
                 std::stod(tokens[4]), // высокий
                 std::stod(tokens[1]), // низкий
-                std::stod(tokens[5]), // закрытый
+                std::stod(tokens[5]), // закрытие
                 std::stod(tokens[6]), // скорректированное закрытие
-                std::stoi(tokens[3])  // величина
+                std::stoi(tokens[3])  // величина графика
             );
             stockData.push_back(entry);
         }
