@@ -37,7 +37,7 @@ bool StockAnalyzer::loadCSV(const std::string& filename) {
                 std::stod(tokens[1]), // низкий
                 std::stod(tokens[5]), // закрытие
                 std::stod(tokens[6]), // скорректированное закрытие
-                std::stoi(tokens[3])  // величина графика
+                std::stoi(tokens[3])  // величина 
             );
             stockData.push_back(entry);
         }
