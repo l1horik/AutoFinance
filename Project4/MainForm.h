@@ -15,11 +15,10 @@ namespace StockAnalyzerGUI {
         TextBox^ tbOutput;
         StatusStrip^ statusBar;
         Chart^ chart;
-        Label^ lblTrend;      // Надпись с трендом
-        Label^ lblRecommendation; // Рекомендация
-        Panel^ infoPanel;     // Панель для информации
-
-        // Метод для анализа тренда
+        Label^ lblTrend;     
+        Label^ lblRecommendation; 
+        Panel^ infoPanel;     
+        
         String^ AnalyzeTrend();
 
         void InitializeComponent();
