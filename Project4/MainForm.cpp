@@ -22,8 +22,8 @@ MainForm::~MainForm() {
 bool MainForm::ValidateData() {
     if (analyzer == nullptr) return false;
     if (analyzer->getDataSize() < 30) {
-        MessageBox::Show("Для построения графика нужно минимум 30 дней данных!",
-            "Недостаточно данных",
+        MessageBox::Show("Р”Р»СЏ РїРѕСЃС‚СЂРѕРµРЅРёСЏ РіСЂР°С„РёРєР° РЅСѓР¶РЅРѕ РјРёРЅРёРјСѓРј 30 РґРЅРµР№ РґР°РЅРЅС‹С…!",
+            "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґР°РЅРЅС‹С…",
             MessageBoxButtons::OK,
             MessageBoxIcon::Warning);
         return false;
@@ -33,51 +33,51 @@ bool MainForm::ValidateData() {
 
 String^ MainForm::AnalyzeTrend() {
     if (analyzer == nullptr || analyzer->getDataSize() < 30)
-        return "Недостаточно данных для анализа";
+        return "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґР°РЅРЅС‹С… РґР»СЏ Р°РЅР°Р»РёР·Р°";
 
     auto prices = analyzer->getClosePrices();
     auto sma = analyzer->calculateSMA(30);
 
-    // Анализ последних цен
+    // РђРЅР°Р»РёР· РїРѕСЃР»РµРґРЅРёС… С†РµРЅ
     double currentPrice = prices.back();
     double smaValue = sma.back();
     double deviation = (currentPrice - smaValue) / smaValue * 100;
 
-    // Определение тренда
+    // РћРїСЂРµРґРµР»РµРЅРёРµ С‚СЂРµРЅРґР°
     if (deviation > 5.0) {
-        return "Сильный восходящий тренд (+" + deviation.ToString("F2") + "%)";
+        return "РЎРёР»СЊРЅС‹Р№ РІРѕСЃС…РѕРґСЏС‰РёР№ С‚СЂРµРЅРґ (+" + deviation.ToString("F2") + "%)";
     }
     else if (deviation > 0) {
-        return "Слабый восходящий тренд (+" + deviation.ToString("F2") + "%)";
+        return "РЎР»Р°Р±С‹Р№ РІРѕСЃС…РѕРґСЏС‰РёР№ С‚СЂРµРЅРґ (+" + deviation.ToString("F2") + "%)";
     }
     else if (deviation < -5.0) {
-        return "Сильный нисходящий тренд (" + deviation.ToString("F2") + "%)";
+        return "РЎРёР»СЊРЅС‹Р№ РЅРёСЃС…РѕРґСЏС‰РёР№ С‚СЂРµРЅРґ (" + deviation.ToString("F2") + "%)";
     }
     else {
-        return "Боковой тренд (" + deviation.ToString("F2") + "%)";
+        return "Р‘РѕРєРѕРІРѕР№ С‚СЂРµРЅРґ (" + deviation.ToString("F2") + "%)";
     }
 }
 
 void MainForm::InitializeComponent() {
     this->SuspendLayout();
 
-    // Кнопка загрузки
+    // РљРЅРѕРїРєР° Р·Р°РіСЂСѓР·РєРё
     this->btnLoad = gcnew Button();
     this->btnLoad->Location = Point(10, 10);
     this->btnLoad->Name = L"btnLoad";
     this->btnLoad->Size = Drawing::Size(120, 30);
-    this->btnLoad->Text = L"Загрузить файл";
+    this->btnLoad->Text = L"Р—Р°РіСЂСѓР·РёС‚СЊ С„Р°Р№Р»";
     this->btnLoad->Click += gcnew EventHandler(this, &MainForm::btnLoad_Click);
 
-    // Кнопка графика
+    // РљРЅРѕРїРєР° РіСЂР°С„РёРєР°
     this->btnPlot = gcnew Button();
     this->btnPlot->Location = Point(135, 10);
     this->btnPlot->Name = L"btnPlot";
     this->btnPlot->Size = Drawing::Size(120, 30);
-    this->btnPlot->Text = L"Построить график";
+    this->btnPlot->Text = L"РџРѕСЃС‚СЂРѕРёС‚СЊ РіСЂР°С„РёРє";
     this->btnPlot->Click += gcnew EventHandler(this, &MainForm::btnPlot_Click);
 
-    //Текстовое поле вывода
+    //РўРµРєСЃС‚РѕРІРѕРµ РїРѕР»Рµ РІС‹РІРѕРґР°
     this->tbOutput = gcnew TextBox();
     this->tbOutput->Location = Point(10, 50);
     this->tbOutput->Multiline = true;
@@ -86,12 +86,12 @@ void MainForm::InitializeComponent() {
     this->tbOutput->Size = Drawing::Size(760, 40);
     this->tbOutput->Font = gcnew System::Drawing::Font("Courier New", 10);
     
-    // Настройка графика
+    // РќР°СЃС‚СЂРѕР№РєР° РіСЂР°С„РёРєР°
     this->chart = gcnew Chart();
     ChartArea^ chartArea = gcnew ChartArea();
     this->chart->ChartAreas->Add(chartArea);
 
-    Series^ seriesClose = gcnew Series("Цена закрытия");
+    Series^ seriesClose = gcnew Series("Р¦РµРЅР° Р·Р°РєСЂС‹С‚РёСЏ");
     seriesClose->ChartType = SeriesChartType::Line;
     seriesClose->Color = Color::Blue;
     this->chart->Series->Add(seriesClose);
@@ -106,20 +106,20 @@ void MainForm::InitializeComponent() {
     this->chart->Size = Drawing::Size(760, 352);
     this->chart->Visible = false;
 
-    chart->Series["Цена закрытия"]->Color = Color::Blue;
-    chart->Series["Цена закрытия"]->BorderWidth = 2;
+    chart->Series["Р¦РµРЅР° Р·Р°РєСЂС‹С‚РёСЏ"]->Color = Color::Blue;
+    chart->Series["Р¦РµРЅР° Р·Р°РєСЂС‹С‚РёСЏ"]->BorderWidth = 2;
     chart->Series["SMA(30)"]->Color = Color::Red;
     chart->Series["SMA(30)"]->BorderWidth = 2;
     chart->Series["SMA(30)"]->BorderDashStyle = ChartDashStyle::Dash;
 
-    //Статус бар
+    //РЎС‚Р°С‚СѓСЃ Р±Р°СЂ
     this->statusBar = gcnew StatusStrip();
-    this->statusBar->Items->Add(gcnew ToolStripStatusLabel(L"Готов"));
+    this->statusBar->Items->Add(gcnew ToolStripStatusLabel(L"Р“РѕС‚РѕРІ"));
     this->statusBar->Location = Point(0, 520);
     this->statusBar->Name = L"statusBar";
     this->statusBar->Size = Drawing::Size(800, 22);
     
-    //Настройки главной формы
+    //РќР°СЃС‚СЂРѕР№РєРё РіР»Р°РІРЅРѕР№ С„РѕСЂРјС‹
     this->ClientSize = Drawing::Size(800, 542);
     this->Controls->Add(this->btnLoad);
     this->Controls->Add(this->btnAnalyze);
@@ -128,24 +128,24 @@ void MainForm::InitializeComponent() {
     this->Controls->Add(this->chart);
     this->Controls->Add(this->statusBar);
     this->Name = L"MainForm";
-    this->Text = L"Анализатор акций";
+    this->Text = L"РђРЅР°Р»РёР·Р°С‚РѕСЂ Р°РєС†РёР№";
     this->ResumeLayout(false);
     this->PerformLayout();
 
-    // Панель для информации
+    // РџР°РЅРµР»СЊ РґР»СЏ РёРЅС„РѕСЂРјР°С†РёРё
     infoPanel = gcnew Panel();
     infoPanel->Location = Point(10, 452);
     infoPanel->Size = Drawing::Size(760, 60);
     infoPanel->BackColor = Color::LightGray;
 
-    // Надпись с трендом
+    // РќР°РґРїРёСЃСЊ СЃ С‚СЂРµРЅРґРѕРј
     lblTrend = gcnew Label();
     lblTrend->Location = Point(10, 10);
     lblTrend->Size = Drawing::Size(740, 20);
     lblTrend->Font = gcnew Drawing::Font("Arial", 10, FontStyle::Bold);
     infoPanel->Controls->Add(lblTrend);
 
-    // Надпись с рекомендацией
+    // РќР°РґРїРёСЃСЊ СЃ СЂРµРєРѕРјРµРЅРґР°С†РёРµР№
     lblRecommendation = gcnew Label();
     lblRecommendation->Location = Point(10, 35);
     lblRecommendation->Size = Drawing::Size(740, 20);
@@ -164,18 +164,18 @@ void MainForm::btnLoad_Click(Object^ sender, EventArgs^ e) {
             std::string filename = msclr::interop::marshal_as<std::string>(openFileDialog->FileName);
 
             if (analyzer->loadCSV(filename)) {
-                tbOutput->Text = "Файл успешно загружен.";
-                statusBar->Items[0]->Text = "Файл загружен: " + openFileDialog->FileName;
-                chart->Visible = false; // Скрываем предыдущий график
+                tbOutput->Text = "Р¤Р°Р№Р» СѓСЃРїРµС€РЅРѕ Р·Р°РіСЂСѓР¶РµРЅ.";
+                statusBar->Items[0]->Text = "Р¤Р°Р№Р» Р·Р°РіСЂСѓР¶РµРЅ: " + openFileDialog->FileName;
+                chart->Visible = false; // РЎРєСЂС‹РІР°РµРј РїСЂРµРґС‹РґСѓС‰РёР№ РіСЂР°С„РёРє
             }
             else {
-                tbOutput->Text = "Ошибка загрузки файла. Проверьте формат.";
-                statusBar->Items[0]->Text = "Ошибка загрузки";
+                tbOutput->Text = "РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё С„Р°Р№Р»Р°. РџСЂРѕРІРµСЂСЊС‚Рµ С„РѕСЂРјР°С‚.";
+                statusBar->Items[0]->Text = "РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё";
             }
         }
         catch (Exception^ ex) {
-            tbOutput->Text = "Ошибка: " + ex->Message;
-            statusBar->Items[0]->Text = "Критическая ошибка";
+            tbOutput->Text = "РћС€РёР±РєР°: " + ex->Message;
+            statusBar->Items[0]->Text = "РљСЂРёС‚РёС‡РµСЃРєР°СЏ РѕС€РёР±РєР°";
         }
     }
 }
@@ -183,73 +183,73 @@ void MainForm::btnLoad_Click(Object^ sender, EventArgs^ e) {
 void MainForm::btnAnalyze_Click(Object^ sender, EventArgs^ e) {
     try {
         if (analyzer->getDataSize() == 0) {
-            tbOutput->Text = "Нет данных для анализа! Сначала загрузите файл.";
+            tbOutput->Text = "РќРµС‚ РґР°РЅРЅС‹С… РґР»СЏ Р°РЅР°Р»РёР·Р°! РЎРЅР°С‡Р°Р»Р° Р·Р°РіСЂСѓР·РёС‚Рµ С„Р°Р№Р».";
             return;
         }
 
-        statusBar->Items[0]->Text = "Анализ завершен";
+        statusBar->Items[0]->Text = "РђРЅР°Р»РёР· Р·Р°РІРµСЂС€РµРЅ";
     }
     catch (const std::exception& ex) {
-        tbOutput->Text = "Ошибка анализа: " + gcnew String(ex.what());
-        statusBar->Items[0]->Text = "Ошибка анализа";
+        tbOutput->Text = "РћС€РёР±РєР° Р°РЅР°Р»РёР·Р°: " + gcnew String(ex.what());
+        statusBar->Items[0]->Text = "РћС€РёР±РєР° Р°РЅР°Р»РёР·Р°";
     }
     catch (Exception^ ex) {
-        tbOutput->Text = "Ошибка: " + ex->Message;
-        statusBar->Items[0]->Text = "Критическая ошибка";
+        tbOutput->Text = "РћС€РёР±РєР°: " + ex->Message;
+        statusBar->Items[0]->Text = "РљСЂРёС‚РёС‡РµСЃРєР°СЏ РѕС€РёР±РєР°";
     }
 }
 
 void MainForm::btnPlot_Click(Object^ sender, EventArgs^ e) {
     if (analyzer == nullptr || analyzer->getDataSize() < 30) {
-        MessageBox::Show("Для построения графика требуется минимум 30 дней данных",
-            "Недостаточно данных",
+        MessageBox::Show("Р”Р»СЏ РїРѕСЃС‚СЂРѕРµРЅРёСЏ РіСЂР°С„РёРєР° С‚СЂРµР±СѓРµС‚СЃСЏ РјРёРЅРёРјСѓРј 30 РґРЅРµР№ РґР°РЅРЅС‹С…",
+            "РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РґР°РЅРЅС‹С…",
             MessageBoxButtons::OK,
             MessageBoxIcon::Warning);
         return;
     }
 
     try {
-        // Очищаем предыдущие данные
-        chart->Series["Цена закрытия"]->Points->Clear();
+        // РћС‡РёС‰Р°РµРј РїСЂРµРґС‹РґСѓС‰РёРµ РґР°РЅРЅС‹Рµ
+        chart->Series["Р¦РµРЅР° Р·Р°РєСЂС‹С‚РёСЏ"]->Points->Clear();
         chart->Series["SMA(30)"]->Points->Clear();
 
-        // Получаем данные
+        // РџРѕР»СѓС‡Р°РµРј РґР°РЅРЅС‹Рµ
         auto dates = analyzer->getDates();
         auto prices = analyzer->getClosePrices();
         auto sma = analyzer->calculateSMA(30);
 
-        // Настраиваем оси
-        chart->ChartAreas[0]->AxisX->Title = "Дни торгов";
-        chart->ChartAreas[0]->AxisY->Title = "Цена ($)";
+        // РќР°СЃС‚СЂР°РёРІР°РµРј РѕСЃРё
+        chart->ChartAreas[0]->AxisX->Title = "Р”РЅРё С‚РѕСЂРіРѕРІ";
+        chart->ChartAreas[0]->AxisY->Title = "Р¦РµРЅР° ($)";
         chart->ChartAreas[0]->AxisX->Interval = 5;
         chart->ChartAreas[0]->AxisX->MajorGrid->LineColor = Color::LightGray;
         chart->ChartAreas[0]->AxisY->MajorGrid->LineColor = Color::LightGray;
 
-        // Добавляем фактические цены (синяя линия)
+        // Р”РѕР±Р°РІР»СЏРµРј С„Р°РєС‚РёС‡РµСЃРєРёРµ С†РµРЅС‹ (СЃРёРЅСЏСЏ Р»РёРЅРёСЏ)
         for (size_t i = 0; i < prices.size(); ++i) {
-            int pointIndex = chart->Series["Цена закрытия"]->Points->AddXY(i, prices[i]);
-            chart->Series["Цена закрытия"]->Points[pointIndex]->ToolTip =
-                String::Format("День {0}\n{1}\nЦена: {2:F2}",
+            int pointIndex = chart->Series["Р¦РµРЅР° Р·Р°РєСЂС‹С‚РёСЏ"]->Points->AddXY(i, prices[i]);
+            chart->Series["Р¦РµРЅР° Р·Р°РєСЂС‹С‚РёСЏ"]->Points[pointIndex]->ToolTip =
+                String::Format("Р”РµРЅСЊ {0}\n{1}\nР¦РµРЅР°: {2:F2}",
                     i + 1, gcnew String(dates[i].c_str()), prices[i]);
         }
 
-        // Добавляем SMA (красная пунктирная линия)
+        // Р”РѕР±Р°РІР»СЏРµРј SMA (РєСЂР°СЃРЅР°СЏ РїСѓРЅРєС‚РёСЂРЅР°СЏ Р»РёРЅРёСЏ)
         for (size_t i = 0; i < sma.size(); ++i) {
-            int dayIndex = i + 29; // Правильное смещение для SMA(30)
+            int dayIndex = i + 29; // РџСЂР°РІРёР»СЊРЅРѕРµ СЃРјРµС‰РµРЅРёРµ РґР»СЏ SMA(30)
             int pointIndex = chart->Series["SMA(30)"]->Points->AddXY(dayIndex, sma[i]);
             chart->Series["SMA(30)"]->Points[pointIndex]->ToolTip =
-                String::Format("День {0}\n{1}\nSMA(30): {2:F2}",
+                String::Format("Р”РµРЅСЊ {0}\n{1}\nSMA(30): {2:F2}",
                     dayIndex + 1, gcnew String(dates[dayIndex].c_str()), sma[i]);
         }
 
-        // Настраиваем внешний вид
-        chart->Series["Цена закрытия"]->Color = Color::Blue;
-        chart->Series["Цена закрытия"]->BorderWidth = 2;
+        // РќР°СЃС‚СЂР°РёРІР°РµРј РІРЅРµС€РЅРёР№ РІРёРґ
+        chart->Series["Р¦РµРЅР° Р·Р°РєСЂС‹С‚РёСЏ"]->Color = Color::Blue;
+        chart->Series["Р¦РµРЅР° Р·Р°РєСЂС‹С‚РёСЏ"]->BorderWidth = 2;
         chart->Series["SMA(30)"]->Color = Color::Red;
         chart->Series["SMA(30)"]->BorderWidth = 2;
         chart->Series["SMA(30)"]->BorderDashStyle = ChartDashStyle::Dash;
 
-        // Включаем интерактивность
+        // Р’РєР»СЋС‡Р°РµРј РёРЅС‚РµСЂР°РєС‚РёРІРЅРѕСЃС‚СЊ
         chart->ChartAreas[0]->CursorX->IsUserEnabled = true;
         chart->ChartAreas[0]->CursorX->IsUserSelectionEnabled = true;
         chart->ChartAreas[0]->CursorY->IsUserEnabled = true;
@@ -257,25 +257,25 @@ void MainForm::btnPlot_Click(Object^ sender, EventArgs^ e) {
 
         chart->Visible = true;
 
-        // Анализ и вывод информации
+        // РђРЅР°Р»РёР· Рё РІС‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё
         String^ trend = AnalyzeTrend();
-        lblTrend->Text = "Текущий тренд: " + trend;
+        lblTrend->Text = "РўРµРєСѓС‰РёР№ С‚СЂРµРЅРґ: " + trend;
 
-        // Формирование рекомендации
-        if (trend->Contains("Сильный восходящий")) {
-            lblRecommendation->Text = "Рекомендация: ПОКУПАТЬ (цена выше SMA на 5%+)";
+        // Р¤РѕСЂРјРёСЂРѕРІР°РЅРёРµ СЂРµРєРѕРјРµРЅРґР°С†РёРё
+        if (trend->Contains("РЎРёР»СЊРЅС‹Р№ РІРѕСЃС…РѕРґСЏС‰РёР№")) {
+            lblRecommendation->Text = "Р РµРєРѕРјРµРЅРґР°С†РёСЏ: РџРћРљРЈРџРђРўР¬ (С†РµРЅР° РІС‹С€Рµ SMA РЅР° 5%+)";
             lblRecommendation->ForeColor = Color::Green;
         }
-        else if (trend->Contains("Слабый восходящий")) {
-            lblRecommendation->Text = "Рекомендация: ДЕРЖАТЬ (цена выше SMA)";
+        else if (trend->Contains("РЎР»Р°Р±С‹Р№ РІРѕСЃС…РѕРґСЏС‰РёР№")) {
+            lblRecommendation->Text = "Р РµРєРѕРјРµРЅРґР°С†РёСЏ: Р”Р•Р Р–РђРўР¬ (С†РµРЅР° РІС‹С€Рµ SMA)";
             lblRecommendation->ForeColor = Color::DarkGreen;
         }
-        else if (trend->Contains("Сильный нисходящий")) {
-            lblRecommendation->Text = "Рекомендация: ПРОДАВАТЬ (цена ниже SMA на 5%+)";
+        else if (trend->Contains("РЎРёР»СЊРЅС‹Р№ РЅРёСЃС…РѕРґСЏС‰РёР№")) {
+            lblRecommendation->Text = "Р РµРєРѕРјРµРЅРґР°С†РёСЏ: РџР РћР”РђР’РђРўР¬ (С†РµРЅР° РЅРёР¶Рµ SMA РЅР° 5%+)";
             lblRecommendation->ForeColor = Color::Red;
         }
         else {
-            lblRecommendation->Text = "Рекомендация: НЕ ТОРГОВАТЬ (рынок в флэте)";
+            lblRecommendation->Text = "Р РµРєРѕРјРµРЅРґР°С†РёСЏ: РќР• РўРћР Р“РћР’РђРўР¬ (СЂС‹РЅРѕРє РІ С„Р»СЌС‚Рµ)";
             lblRecommendation->ForeColor = Color::Black;
         }
 
@@ -284,8 +284,8 @@ void MainForm::btnPlot_Click(Object^ sender, EventArgs^ e) {
     }
 
     catch (Exception^ ex) {
-        MessageBox::Show("Ошибка построения графика:\n" + ex->Message,
-            "Ошибка",
+        MessageBox::Show("РћС€РёР±РєР° РїРѕСЃС‚СЂРѕРµРЅРёСЏ РіСЂР°С„РёРєР°:\n" + ex->Message,
+            "РћС€РёР±РєР°",
             MessageBoxButtons::OK,
             MessageBoxIcon::Error);
     }
