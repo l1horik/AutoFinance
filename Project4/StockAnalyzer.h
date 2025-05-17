@@ -42,7 +42,7 @@ public:
     ~StockAnalyzer() {
         if (!isDisposed) {
             isDisposed = true;
-            // Доп. очистка если есть
+            // Р”РѕРї. РѕС‡РёСЃС‚РєР° РµСЃР»Рё РµСЃС‚СЊ
         }
     }
 };
